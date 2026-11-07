@@ -1,0 +1,8 @@
+id = "coordsday"
+name = "Coords and Day"
+version = "1.0.0"
+description = "Shows your coordinates (XYZ) and the day number in the top left corner."
+authors = ["Khang"]
+api = "0.1"
+side = "client"
+capabilities = ["game-read", "hud"]
