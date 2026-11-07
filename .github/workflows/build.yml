@@ -1,0 +1,28 @@
+name: Build Coords and Day
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - name: Install cargo-horizon-mod
+        run: cargo install --git https://github.com/Vasysik/horizon-android --branch android cargo-horizon-mod
+      - name: Build coordsday.hmod
+        run: cargo horizon-mod build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: coordsday-hmod
+          path: target/horizon-mod/coordsday.hmod
+      - name: Publish release (direct download link)
+        if: github.ref_type == 'tag'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: target/horizon-mod/coordsday.hmod
