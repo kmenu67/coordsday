@@ -12,7 +12,7 @@ impl CoordsDay {
     fn update(&mut self) {
         let text = match game::get_player() {
             Some(p) => {
-                let day = game::get_clock().map_or(1, |c| c.game_time / 24000 + 1);
+                let day = game::get_clock().map_or(1, |c| c.day_time / 24000 + 1);
                 format!(
                     "XYZ: {} {} {} | Day: {}",
                     p.x.floor() as i64,
